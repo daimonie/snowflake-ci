@@ -36,7 +36,7 @@ BEGIN
   FOR record IN cur DO
     current_prefix := record.prefix;
     INSERT INTO plant_shop.public.log (message, time_col)
-      VALUES (:current_prefix || ' New entry: ' || :p_name, CURRENT_TIMESTAMP());
+      VALUES (:current_prefix || ' New entry, probably from CI: ' || :p_name, CURRENT_TIMESTAMP());
   END FOR;
   RETURN 'Done';
 END;
