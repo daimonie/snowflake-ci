@@ -1,12 +1,29 @@
-include:
-  - component: $CI_SERVER_FQDN/snowflake-dev/snowflake-cicd-component/configure-snowflake-cli@1.1.0
-    inputs:
-      use-oidc: true
-      cli-version: "3.16"
-      job-name: deploy-prod
-      script:
-        - snow connection test -x
+name: Deploy to Snowflake
+on:
+  push:
+    branches:
+      - main
 
-variables:
-  SNOWFLAKE_ACCOUNT: $SNOWFLAKE_ACCOUNT
-  SNOWFLAKE_USER: gitlab_cicd_user
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: snowflakedb/snowflake-actions@v3
+        with:
+          use-oidc: true
+          cli-version: "3.16"
+
+      - name: Deploy
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ variables.SNOWFLAKE_ACCOUNT }}
+        run: |
+          snow connection test -x
+          snow dcm deploy --target PROD -x
