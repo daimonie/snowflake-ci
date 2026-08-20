@@ -11,6 +11,8 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,7 +24,5 @@ jobs:
           cli-version: "3.16"
 
       - name: Deploy
-        env:
-          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
         run: |
           snow connection test -x
