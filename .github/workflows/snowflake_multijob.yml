@@ -26,4 +26,3 @@ jobs:
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
         run: |
           snow connection test -x
-          snow dcm deploy --target PROD -x
