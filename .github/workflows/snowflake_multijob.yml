@@ -23,6 +23,12 @@ jobs:
           use-oidc: true
           cli-version: "3.16"
 
-      - name: Deploy
+      - name: Test Connection
         run: |
           snow connection test -x
+
+      - name: Execute SQL
+        env:
+          NAME: "github-actions"
+        run: |
+          snow sql -f log_test.sql -D "name=$NAME" -x
