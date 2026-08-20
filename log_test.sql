@@ -4,6 +4,10 @@
 SET name = '<% name %>';
 
 USE ROLE GIT_CICD; 
+USE DATABASE PLANT_SHOP;
+USE SCHEMA PUBLIC; 
+USE WAREHOUSE COMPUTE_WH_PLANT_SHOP;
+
 
 INSERT INTO plant_shop.public.log (message, time_col) VALUES ('New entry: ' || $name, CURRENT_TIMESTAMP());
 
