@@ -29,6 +29,6 @@ jobs:
 
       - name: Execute SQL
         env:
-          NAME: "github-actions"
+          NAME: "Simple github action to insert a log"
         run: |
           snow sql -f log_test.sql -D "name=$NAME" -x
