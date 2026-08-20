@@ -1,0 +1,12 @@
+include:
+  - component: $CI_SERVER_FQDN/snowflake-dev/snowflake-cicd-component/configure-snowflake-cli@1.1.0
+    inputs:
+      use-oidc: true
+      cli-version: "3.16"
+      job-name: deploy-prod
+      script:
+        - snow connection test -x
+
+variables:
+  SNOWFLAKE_ACCOUNT: $SNOWFLAKE_ACCOUNT
+  SNOWFLAKE_USER: gitlab_cicd_user
